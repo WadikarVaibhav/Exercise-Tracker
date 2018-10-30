@@ -17,7 +17,7 @@ public class ActivityRepository {
 		user1.setName("Paul");
 		
 		Activity activity1 = new Activity();
-		activity1.setName("Swiming");
+		activity1.setName("Swimming");
 		activity1.setDuration(20);
 		activity1.setId(1);
 		activity1.setUser(user1);
@@ -61,6 +61,20 @@ public class ActivityRepository {
 		for (Activity activity: activities) {
 			if (activityId == activity.getId()) {
 				return activity.getUser();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @param activityId
+	 * @return
+	 */
+	public String getActivityUserName(int activityId) {
+		List<Activity> activities = getAllActivities();
+		for (Activity activity: activities) {
+			if (activityId == activity.getId()) {
+				return activity.getUser().getName();
 			}
 		}
 		return null;
