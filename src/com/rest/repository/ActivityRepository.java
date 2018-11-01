@@ -79,4 +79,37 @@ public class ActivityRepository {
 		}
 		return null;
 	}
+	
+	/**
+	 * @param activity
+	 * @return
+	 */
+	public List<Activity> createActivity(Activity activity) {
+		List<Activity> activities = getAllActivities();
+		activities.add(activity);
+		return activities;
+	}
+	
+	/**
+	 * @param activity
+	 * @return
+	 */
+	public List<Activity> updateActivity(Activity activity) {
+		List<Activity> activities = getAllActivities();
+		boolean found = false;
+		for (Activity act: activities) {
+			if (act.getId() == activity.getId()) {
+				act.setDuration(activity.getDuration());
+				act.setUser(activity.getUser());
+				act.setId(activity.getId());
+				act.setName(activity.getName());
+				found = true;
+			}
+		}
+		if (!found) {
+			activities.add(activity);
+		}
+		return activities;
+	}
+	
 }

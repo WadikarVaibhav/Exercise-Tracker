@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -59,6 +60,10 @@ public class ActivityResource {
 		return repository.getActivityUserName(activityId);
 	}
 	
+	/**
+	 * @param formParams
+	 * @return
+	 */
 	@POST
 	@Path("activity")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -70,14 +75,30 @@ public class ActivityResource {
 	}
 	
 	
+	/**
+	 * @param activity
+	 * @return
+	 */
 	@POST
 	@Path("activitybind")
-	@Consumes(MediaType.APPLICATION_JSON) //bind to POJO application type json
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Activity createActivityParams(Activity activity) {
-		System.out.println(activity.getDuration());
-		System.out.println(activity.getName());
-		return null;
+	public List<Activity> createActivityParams(Activity activity) {
+		List<Activity> activities = repository.createActivity(activity);
+		return activities;
+	}
+	
+	/**
+	 * @param activity
+	 * @return
+	 */
+	@PUT
+	@Path("{activityId}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Activity> updateActivity(Activity activity) {
+		List<Activity> activities = repository.updateActivity(activity);
+		return activities;
 	}
 	
 }
