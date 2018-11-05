@@ -32,8 +32,30 @@ public class ActivityRepository {
 		activity2.setId(2);
 		activity2.setUser(user2);
 		
+		User user3 = new User();
+		user3.setId(123);
+		user3.setName("Jack");
+		
+		Activity activity3 = new Activity();
+		activity3.setName("Vollyball");
+		activity3.setDuration(80);
+		activity3.setId(3);
+		activity3.setUser(user3);
+		
+		User user4 = new User();
+		user4.setId(12);
+		user4.setName("James");
+		
+		Activity activity4 = new Activity();
+		activity4.setName("Cricket");
+		activity4.setDuration(100);
+		activity4.setId(2);
+		activity4.setUser(user4);
+		
 		activities.add(activity1);
 		activities.add(activity2);
+		activities.add(activity3);
+		activities.add(activity4);
 		
 		return activities;
 	}
@@ -110,6 +132,17 @@ public class ActivityRepository {
 			activities.add(activity);
 		}
 		return activities;
+	}
+
+	public List<Activity> findActivities(int from, int to) {
+		List<Activity> activities = getAllActivities();
+		List<Activity> result = new ArrayList<>();
+		for (Activity activity: activities) {
+			if (activity.getDuration() >= from && activity.getDuration() <= to) {
+				result.add(activity);
+			}
+		}
+		return result;
 	}
 	
 }

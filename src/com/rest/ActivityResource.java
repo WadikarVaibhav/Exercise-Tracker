@@ -9,8 +9,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.rest.model.Activity;
 import com.rest.model.User;
@@ -99,6 +102,18 @@ public class ActivityResource {
 	public List<Activity> updateActivity(Activity activity) {
 		List<Activity> activities = repository.updateActivity(activity);
 		return activities;
+	}
+	
+	@GET
+	@Path("search")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findActivities(@QueryParam(value="durationFrom") int from,
+			@QueryParam(value="durationTo") int to) {
+		List<Activity> activities = repository.findActivities(from, to);
+		if (activities == null || activities.size() < 1) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+		return Response.ok(activities).build();
 	}
 	
 }
